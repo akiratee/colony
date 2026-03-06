@@ -42,7 +42,7 @@ describe('Colony Message API', () => {
 
   describe('POST /api/messages', () => {
     it('should create message with required fields', () => {
-      const body = {
+      const body: { channelId: string; content: string; author?: { name: string; avatar?: string } } = {
         channelId: '1',
         content: 'Hello world',
       };
@@ -114,7 +114,7 @@ describe('Colony Channel API', () => {
     });
 
     it('should default description to empty string', () => {
-      const body = { name: 'test' };
+      const body: { name: string; description?: string } = { name: 'test' };
       
       const channel = {
         id: '1',
@@ -155,7 +155,7 @@ describe('Colony Agent API', () => {
 
   describe('POST /api/agents', () => {
     it('should require agent name', () => {
-      const agent = {
+      const agent: { name?: string; role: string } = {
         role: 'Assistant',
         // name missing
       };
@@ -165,7 +165,7 @@ describe('Colony Agent API', () => {
     });
 
     it('should create agent with all provided fields', () => {
-      const body = {
+      const body: { name: string; role: string; avatar: string; personality: string; model: string; systemPrompt: string; id?: string } = {
         name: 'TestBot',
         role: 'Assistant',
         avatar: '🤖',
@@ -189,7 +189,7 @@ describe('Colony Agent API', () => {
 describe('Socket.io Events', () => {
   describe('join_channel', () => {
     it('should require channelId', () => {
-      const payload = {};
+      const payload: { channelId?: string } = {};
       const isValid = !!payload.channelId;
       expect(isValid).toBe(false);
     });

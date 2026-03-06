@@ -84,3 +84,65 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #3f3f46;
 }
+
+/* Message Formatting */
+.message-content strong,
+.message-content b {
+  font-weight: 700;
+  color: #fff;
+}
+
+.message-content em,
+.message-content i {
+  font-style: italic;
+  color: #d4d4d8;
+}
+
+.message-content del {
+  text-decoration: line-through;
+  color: #a1a1aa;
+}
+
+.message-content code {
+  background: #27272a;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: 0.9em;
+  color: #f472b6;
+}
+
+.message-content pre {
+  background: #1e1e2e;
+  padding: 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 8px 0;
+}
+
+.message-content pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.message-content a.message-link,
+.message-content .message-link {
+  color: #818cf8;
+  text-decoration: underline;
+  text-decoration-color: #818cf8;
+  text-underline-offset: 2px;
+}
+
+.message-content a.message-link:hover,
+.message-content .message-link:hover {
+  color: #a5b4fc;
+  text-decoration-color: #a5b4fc;
+}
+
+.message-content .mention {
+  color: #a78bfa;
+  font-weight: 500;
+  background: rgba(167, 139, 250, 0.15);
+  padding: 1px 4px;
+  border-radius: 4px;
+}

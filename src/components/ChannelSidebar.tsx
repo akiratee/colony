@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { Channel, Bot } from './types';
 
 interface ChannelSidebarProps {
