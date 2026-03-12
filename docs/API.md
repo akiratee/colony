@@ -361,6 +361,107 @@ Check if a draft exists.
 
 **Response:** 200 if exists, 404 if not found
 
+#### Scheduled Messages API
+
+Schedule messages to be sent at a future time.
+
+##### GET /api/messages/scheduled
+
+Get all scheduled messages, optionally filtered by channel.
+
+**Rate Limit:** 30 requests/minute
+
+**Headers:** `Authorization: Bearer <token>`
+
+**Query Parameters:**
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| channelId | string | Optional - filter by channel |
+
+**Response:**
+```json
+{
+  "messages": [
+    {
+      "id": "scheduled-1234567890-abc123",
+      "channelId": "general",
+      "content": "Hello team!",
+      "author": { "id": "user-1", "name": "Vincent", "avatar": "👨‍💻" },
+      "scheduledAt": "2026-03-15T09:00:00.000Z",
+      "status": "pending",
+      "createdAt": "2026-03-11T22:00:00.000Z"
+    }
+  ],
+  "count": 1
+}
+```
+
+**Status Values:**
+- `pending` - message will be sent at scheduled time
+- `sent` - message has been sent
+- `cancelled` - message was cancelled
+
+##### POST /api/messages/scheduled
+
+Schedule a new message to be sent at a specified time.
+
+**Rate Limit:** 10 requests/minute
+
+**Headers:** `Authorization: Bearer <token>`
+
+**Request Body:**
+```json
+{
+  "channelId": "general",
+  "content": "Hello team!",
+  "scheduledAt": "2026-03-15T09:00:00.000Z"
+}
+```
+
+**Validation:**
+- `channelId`: required, must be a valid channel user has access to
+- `content`: required, 1-10000 characters
+- `scheduledAt`: required, ISO 8601 format, must be in the future
+
+**Response (201):**
+```json
+{
+  "id": "scheduled-1234567890-abc123",
+  "channelId": "general",
+  "content": "Hello team!",
+  "author": { "id": "user-1", "name": "Vincent", "avatar": "👨‍💻" },
+  "scheduledAt": "2026-03-15T09:00:00.000Z",
+  "status": "pending",
+  "createdAt": "2026-03-11T22:00:00.000Z"
+}
+```
+
+**Errors:**
+- 400: Validation failed (invalid channelId, content, or scheduledAt)
+- 401: Authentication required
+- 403: Access denied to channel
+
+##### DELETE /api/messages/scheduled
+
+Cancel a scheduled message.
+
+**Rate Limit:** 10 requests/minute
+
+**Headers:** `Authorization: Bearer <token>`
+
+**Query Parameters:**
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| id | string | The scheduled message ID to cancel |
+
+**Response:** `{ "success": true }`
+
+**Errors:**
+- 400: Message already sent or cancelled
+- 401: Authentication required
+- 403: Can only cancel your own scheduled messages
+- 404: Message not found
+
 #### GET /api/messages/search
 
 Search messages by content with optional filters.

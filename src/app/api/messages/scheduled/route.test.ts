@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { NextRequest } from 'next/server';
 import { GET, POST, DELETE } from './route';
 
@@ -53,7 +53,7 @@ describe('Scheduled Messages API', () => {
           id: 'msg-1',
           channelId: 'channel-1',
           content: 'Hello world',
-          author: { id: 'user-123', name: 'Test User', avatar: null },
+          author: { id: 'user-123', name: 'Test User', avatar: undefined },
           scheduledAt: new Date('2026-03-07T10:00:00Z'),
           status: 'pending' as const,
           createdAt: new Date(),
@@ -167,7 +167,7 @@ describe('Scheduled Messages API', () => {
         id: 'sched-1',
         channelId: 'channel-1',
         content: 'Hello',
-        author: { id: 'user-123', name: 'Test User', avatar: null },
+        author: { id: 'user-123', name: 'Test User', avatar: undefined },
         scheduledAt: futureDate,
         status: 'pending' as const,
         createdAt: new Date(),
@@ -221,7 +221,7 @@ describe('Scheduled Messages API', () => {
         id: 'msg-1',
         channelId: 'channel-1',
         content: 'Hello',
-        author: { id: 'other-user', name: 'Other User', avatar: null },
+        author: { id: 'other-user', name: 'Other User', avatar: undefined },
         scheduledAt: new Date('2026-03-07T10:00:00Z'),
         status: 'pending' as const,
         createdAt: new Date(),
@@ -240,7 +240,7 @@ describe('Scheduled Messages API', () => {
         id: 'msg-1',
         channelId: 'channel-1',
         content: 'Hello',
-        author: { id: 'user-123', name: 'Test User', avatar: null },
+        author: { id: 'user-123', name: 'Test User', avatar: undefined },
         scheduledAt: new Date('2026-03-07T10:00:00Z'),
         status: 'pending' as const,
         createdAt: new Date(),
